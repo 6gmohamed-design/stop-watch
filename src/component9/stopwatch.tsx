@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const Stopwatch = () => {
   const [time, setTime] = useState(0);
   const [start, setStart] = useState(false);
-  const timerRef = useRef(null);
+  const timerRef = useRef<number | null>(null);
 
   useEffect(() => {
     if (start) {
@@ -11,10 +11,10 @@ const Stopwatch = () => {
         setTime(prev => prev + 10);
       }, 10);
     } else {
-      clearInterval(timerRef.current);
+      clearInterval(timerRef.current || undefined);
     }
 
-    return () => clearInterval(timerRef.current);
+    return () => clearInterval(timerRef.current || undefined);
   }, [start]);
 
   const handleReset = () => {
